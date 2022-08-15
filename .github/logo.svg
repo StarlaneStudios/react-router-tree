@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;">
+    <g id="Trunk" transform="matrix(1.06846,0,0,1.06846,-0.784426,-1.38053)">
+        <path d="M11.657,9.934L10.924,10.393L9.969,13.681L8.425,13.039L8.028,13.262L8.137,13.628L9.895,14.527L10.363,17.48L8.79,19.682L10.594,19.307L10.682,20.165L11.933,19.728L12.111,19.267L12.3,19.599L14.091,20.073L14.352,19.575L15.811,19.805L13.938,18.712L11.746,14.79L11.949,13.307L14.029,13.728L14.307,13.487L14.067,13.262L12.093,12.255L12.154,10.601L11.657,9.934Z" style="fill:rgb(97,218,251);"/>
+    </g>
+    <g id="React-Leaves" serif:id="React Leaves">
+        <g transform="matrix(0.451734,0.0732703,-0.0732703,0.451734,12.3216,5.14277)">
+            <circle cx="0" cy="0" r="2.05" style="fill:rgb(97,218,251);"/>
+        </g>
+        <g transform="matrix(0.451734,0.0732703,-0.0732703,0.451734,12.3216,5.14277)">
+            <ellipse cx="0" cy="0" rx="11" ry="4.2" style="fill:none;stroke:rgb(97,218,251);stroke-width:1px;"/>
+        </g>
+        <g transform="matrix(0.162413,0.427849,-0.427849,0.162413,12.3216,5.14277)">
+            <ellipse cx="0" cy="0" rx="11" ry="4.2" style="fill:none;stroke:rgb(97,218,251);stroke-width:1px;"/>
+        </g>
+        <g transform="matrix(-0.289321,0.354578,-0.354578,-0.289321,12.3216,5.14277)">
+            <ellipse cx="0" cy="0" rx="11" ry="4.2" style="fill:none;stroke:rgb(97,218,251);stroke-width:1px;"/>
+        </g>
+    </g>
+    <g id="React-Leaves1" serif:id="React Leaves" transform="matrix(1,0,0,1,11.5,10.2317)">
+        <g transform="matrix(0.186503,-0.139353,0.139353,0.186503,5.06659,2.55784)">
+            <circle cx="0" cy="0" r="2.05" style="fill:rgb(97,218,251);"/>
+        </g>
+        <g transform="matrix(0.186503,-0.139353,0.139353,0.186503,5.06659,2.55784)">
+            <ellipse cx="0" cy="0" rx="11" ry="4.2" style="fill:none;stroke:rgb(97,218,251);stroke-width:1px;"/>
+        </g>
+        <g transform="matrix(0.213935,0.09184,-0.09184,0.213935,5.06659,2.55784)">
+            <ellipse cx="0" cy="0" rx="11" ry="4.2" style="fill:none;stroke:rgb(97,218,251);stroke-width:1px;"/>
+        </g>
+        <g transform="matrix(0.0274315,0.231193,-0.231193,0.0274315,5.06659,2.55784)">
+            <ellipse cx="0" cy="0" rx="11" ry="4.2" style="fill:none;stroke:rgb(97,218,251);stroke-width:1px;"/>
+        </g>
+    </g>
+    <g id="React-Leaves2" serif:id="React Leaves">
+        <g transform="matrix(0.198773,-0.0243028,0.0243028,0.198773,6.15344,12.0873)">
+            <circle cx="0" cy="0" r="2.05" style="fill:rgb(97,218,251);"/>
+        </g>
+        <g transform="matrix(0.198773,-0.0243028,0.0243028,0.198773,6.15344,12.0873)">
+            <ellipse cx="0" cy="0" rx="11" ry="4.2" style="fill:none;stroke:rgb(97,218,251);stroke-width:1px;"/>
+        </g>
+        <g transform="matrix(0.120433,0.159991,-0.159991,0.120433,6.15344,12.0873)">
+            <ellipse cx="0" cy="0" rx="11" ry="4.2" style="fill:none;stroke:rgb(97,218,251);stroke-width:1px;"/>
+        </g>
+        <g transform="matrix(-0.0783394,0.184293,-0.184293,-0.0783394,6.15344,12.0873)">
+            <ellipse cx="0" cy="0" rx="11" ry="4.2" style="fill:none;stroke:rgb(97,218,251);stroke-width:1px;"/>
+        </g>
+    </g>
+</svg>

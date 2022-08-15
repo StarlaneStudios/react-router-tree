@@ -1,5 +1,6 @@
 {
 	"name": "react-router-tree",
+	"description": "Implement Next.js style routing in any Vite based react application",
 	"version": "0.0.1",
 	"type": "module",
 	"files": [
