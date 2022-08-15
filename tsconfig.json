@@ -21,9 +21,7 @@
 		"jsx": "react-jsx",
 	},
 	"include": [
-		"lib",
-		"dev",
-		"env.d.ts"
+		"lib"
 	],
 	"references": [
 		{
