@@ -1,7 +1,7 @@
 <br>
 
 <p align="center">
-  <img src=".github/logo.svg" height="164">
+  <img src="https://github.com/StarlaneStudios/react-router-tree/blob/main/.github/logo.svg" height="164">
 </p>
 
 # React Router Tree
@@ -89,6 +89,6 @@ An example implementation can be found [here](https://github.com/StarlaneStudios
 
 ## License
 
-react-router-tree is licensed under [MIT](LICENSE)
+react-router-tree is licensed under [MIT](https://github.com/StarlaneStudios/react-router-tree/blob/main/LICENSE)
 
 Copyright (c) 2022-present, [Starlane Studios](https://starlane.studio/)
