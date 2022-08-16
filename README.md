@@ -55,7 +55,7 @@ The above example translates to the given routes
 Each page is expected to contain a default export of it's `RouteObject`. For TypeScript users a `defineRoute` helper function is included. The `path` property will automatically be populated when parsing the tree, so it may be omitted.
 
 ```tsx
-import { defineRoute } from "../../../lib";
+import { defineRoute } from "react-router-tree";
 
 function IndexPage() {
 	return (
