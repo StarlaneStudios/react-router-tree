@@ -1,7 +1,7 @@
 {
 	"name": "react-router-tree",
 	"description": "Implement Next.js style routing in any Vite or Webpack based react application",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "module",
 	"files": [
 		"dist"
