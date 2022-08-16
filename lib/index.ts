@@ -1,4 +1,4 @@
-import { RouteObject } from "react-router";
+import { RouteObject } from "react-router-dom";
 
 export type ViteImport = Record<string, { default: RouteObject }>;
 export type WebpackImport = { keys: () => string[]; } & ((key: string) => { default: RouteObject });
@@ -17,7 +17,7 @@ export interface RouteTree {
  * @param route The route to define
  * @returns The input route
  */
-export function defineRoute(route: RouteObject): RouteObject {
+export function defineRoute<R extends RouteObject = RouteObject>(route: R): R {
 	return route;
 }
 
@@ -28,8 +28,8 @@ export function defineRoute(route: RouteObject): RouteObject {
  * @param trees The route trees to merge
  * @returns The routing objects
  */
-export function buildRouteObjects(trees: RouteTree[]): RouteObject[] {
-	const routeMap: Record<string, RouteObject> = {};
+export function buildRouteObjects<R extends RouteObject = RouteObject>(trees: RouteTree[]): R[] {
+	const routeMap: Record<string, R> = {};
 
 	for(const { prefix, routes } of trees) {
 		const list = isViteImport(routes) ? Object.keys(routes) : routes.keys();
@@ -40,16 +40,6 @@ export function buildRouteObjects(trees: RouteTree[]): RouteObject[] {
 		for (const route of list) {
 			const path = route.substring(fixed.length);
 			const object: any = isViteImport(routes) ? routes[route]?.default : routes(route)?.default;
-
-			// Only support index files, named page components are
-			// currently not supported. This could potentially be
-			// supported later, however I'm unsure how we would
-			// distinct route components from misc components.
-
-			// NOTE: The import glob pattern should now decide the file name
-			// if (!path.endsWith('index.tsx')) {
-			// 	continue;
-			// }
 
 			// Paths cannot be relative, prefix must be incorrect
 			if (path.startsWith('.')) {
@@ -75,7 +65,7 @@ export function buildRouteObjects(trees: RouteTree[]): RouteObject[] {
 
 	const paths = Object.keys(routeMap);
 	const sorted = paths.sort(path => -path.split('/').length);
-	const routes: RouteObject[] = [];
+	const routes: R[] = [];
 
 	for (const path of sorted) {
 		const object = routeMap[path];
