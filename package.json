@@ -6,6 +6,7 @@
 	"files": [
 		"dist"
 	],
+	"license": "MIT",
 	"main": "./dist/react-router-tree.umd.cjs",
 	"module": "./dist/react-router-tree.js",
 	"types": "./dist/index.d.ts",
