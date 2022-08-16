@@ -1,12 +1,12 @@
 <br>
 
 <p align="center">
-  <img src="https://github.com/StarlaneStudios/react-router-tree/blob/main/.github/logo.svg" height="164">
+  <img src="https://raw.githubusercontent.com/StarlaneStudios/react-router-tree/main/.github/logo.svg" height="164">
 </p>
 
 # React Router Tree
 
-Implement Next.js style page directories in your single page application. Currently only supports React projects created using [Vite](https://vitejs.dev/).
+Implement Next.js style page directories in your single page application. Supports React projects created using [Vite](https://vitejs.dev/) and [CRA](https://create-react-app.dev/) (or any other webpack implementation).
 
 ## Installation
 
@@ -71,13 +71,17 @@ export default defineRoute({
 ```
 
 ## Usage
-
 ```ts
-// Define one or more route trees by specifying a path prefix and
-// an eagerly loaded vite glob import.
+// Using vite:
 const pageTree: RouteTree = {
 	prefix: './pages',
 	routes: import.meta.glob('./pages/**/*.tsx', { eager: true })
+};
+
+// Using Create React App:
+const pageTree: RouteTree = {
+	prefix: './',
+	routes: require.context('./pages/', true, /\.tsx$/)
 };
 
 // Combine page trees into a single array of routes

@@ -1,11 +1,14 @@
 import { RouteObject } from "react-router";
 
+export type ViteImport = Record<string, { default: RouteObject }>;
+export type WebpackImport = { keys: () => string[]; } & ((key: string) => { default: RouteObject });
+
 /**
  * An imported tree of routes.
  */
 export interface RouteTree {
 	prefix: string;
-	routes: Record<string, { default: RouteObject }>;
+	routes: ViteImport | WebpackImport;
 }
 
 /**
@@ -29,14 +32,14 @@ export function buildRouteObjects(trees: RouteTree[]): RouteObject[] {
 	const routeMap: Record<string, RouteObject> = {};
 
 	for(const { prefix, routes } of trees) {
-		const list = Object.keys(routes);
+		const list = isViteImport(routes) ? Object.keys(routes) : routes.keys();
 		const fixed = prefix.endsWith('/')
 			? prefix.slice(0, -1)
 			: prefix;
 
 		for (const route of list) {
 			const path = route.substring(fixed.length);
-			const object: any = routes[route]?.default;
+			const object: any = isViteImport(routes) ? routes[route]?.default : routes(route)?.default;
 
 			// Only support index files, named page components are
 			// currently not supported. This could potentially be
@@ -60,7 +63,7 @@ export function buildRouteObjects(trees: RouteTree[]): RouteObject[] {
 			}
 			
 			// Detect page overwriting
-			if (routes[path]) {
+			if (routeMap[path]) {
 				console.warn(`Existing route ${path} was overriden`);
 			}
 
@@ -87,4 +90,8 @@ export function buildRouteObjects(trees: RouteTree[]): RouteObject[] {
 	}
 
 	return routes;
+}
+
+function isViteImport(routes: ViteImport | WebpackImport): routes is ViteImport {
+	return typeof routes === 'object';
 }
