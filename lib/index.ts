@@ -45,9 +45,11 @@ export function buildRouteObjects(trees: RouteTree[]): RouteObject[] {
 			// currently not supported. This could potentially be
 			// supported later, however I'm unsure how we would
 			// distinct route components from misc components.
-			if (!path.endsWith('index.tsx')) {
-				continue;
-			}
+
+			// NOTE: The import glob pattern should now decide the file name
+			// if (!path.endsWith('index.tsx')) {
+			// 	continue;
+			// }
 
 			// Paths cannot be relative, prefix must be incorrect
 			if (path.startsWith('.')) {
@@ -75,13 +77,12 @@ export function buildRouteObjects(trees: RouteTree[]): RouteObject[] {
 	const sorted = paths.sort(path => -path.split('/').length);
 	const routes: RouteObject[] = [];
 
-	
 	for (const path of sorted) {
 		const object = routeMap[path];
 		const fullPath = path
-			.replace(/(\/@)/, '')
-			.replace(/\/index\.tsx$/, '')
-			.replace(/\[(\w+)\]/, ':$1');
+			.replace(/(\/@)/, '')			// Ignore @ folders
+			.replace(/\/[^\/]+$/, '')			// Remove file name
+			.replace(/\[(\w+)\]/, ':$1');   // Convert [param] to :param
 
 		routes.push({
 			...object,

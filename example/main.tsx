@@ -6,16 +6,18 @@ import { StrictMode } from 'react';
 
 const mainTree: RouteTree = {
 	prefix: './pages',
-	routes: import.meta.glob('./pages/**/*.tsx', { eager: true })
+	routes: import.meta.glob('./pages/**/index.tsx', { eager: true })
 }
 
 const otherTree: RouteTree = {
 	prefix: './other-pages',
-	routes: import.meta.glob('./other-pages/**/*.tsx', { eager: true })
+	routes: import.meta.glob('./other-pages/**/index.tsx', { eager: true })
 }
 
 const routes = buildRouteObjects([mainTree, otherTree]);
 const root = createRoot(document.getElementById('root')!);
+
+console.log('Generated routes:', routes);
 
 root.render(
 	<StrictMode>

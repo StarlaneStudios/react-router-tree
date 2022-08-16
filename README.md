@@ -75,13 +75,13 @@ export default defineRoute({
 // Using vite:
 const pageTree: RouteTree = {
 	prefix: './pages',
-	routes: import.meta.glob('./pages/**/*.tsx', { eager: true })
+	routes: import.meta.glob('./pages/**/index.tsx', { eager: true })
 };
 
 // Using Create React App:
 const pageTree: RouteTree = {
 	prefix: './',
-	routes: require.context('./pages/', true, /\.tsx$/)
+	routes: require.context('./pages/', true, /\index\.tsx$/)
 };
 
 // Combine page trees into a single array of routes
