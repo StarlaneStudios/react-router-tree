@@ -6,7 +6,7 @@
 
 # React Router Tree
 
-Implement Next.js style page directories in your single page application. Supports React projects created using [Vite](https://vitejs.dev/) and [CRA](https://create-react-app.dev/) (or any other webpack implementation).
+Implement Next.js style page directories in your single page application. Supports React projects created using [Vite](https://vitejs.dev/) or [CRA](https://create-react-app.dev/) (or any other webpack implementation).
 
 ## Installation
 
