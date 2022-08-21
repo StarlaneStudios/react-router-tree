@@ -21,12 +21,15 @@ npm install react-router-tree
 Pages are defined using a folder structure in your application. Subfolders denote path segments, while pages map to `index.tsx` or `index.jsx` files. In react-router-tree, each page is given it's own directory, in which assets and styles can be placed, allowing for a clean and structured page setup.
 
 ### URL Parameters
+
 Parameters can be defined by using `[name]` as folder name. This will automatically translate into `:name` when building routes.
 
 ### Index mapping
+
 Folders named `@` will map to the index page of the parent directory.
 
 ### Example folder structure
+
 ```
 pages/
 	@/
@@ -52,6 +55,7 @@ The above example translates to the given routes
 ```
 
 # Exporting page components
+
 Each page is expected to contain a default export of it's `RouteObject`. For TypeScript users a `defineRoute` helper function is included. The `path` property will automatically be populated when parsing the tree, so it may be omitted.
 
 ```tsx
@@ -89,7 +93,16 @@ const routes = buildRouteObjects([pageTree]);
 ```
 
 ## Example
+
 An example implementation can be found [here](https://github.com/StarlaneStudios/react-router-tree/tree/main/example).
+
+## Recommendation
+
+If you're looking for further react router enhancements, check out our other package [react-router-interceptor](https://www.npmjs.com/package/react-router-interceptor) which allows you to execute async callbacks before loading a page, introducing a cleaner way of fetching page state.
+
+## Vindigo
+
+This package was originally developed for use in [Vindigo](https://github.com/StarlaneStudios/vindigo), a free and open source task planner.
 
 ## License
 
