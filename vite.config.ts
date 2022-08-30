@@ -13,6 +13,12 @@ export default defineConfig({
 			entry: resolve(__dirname, 'lib/index.ts'),
 			name: 'react-router-tree',
 			fileName: 'react-router-tree'
+		},
+		rollupOptions: {
+			external: [
+				'react',
+				'react-router-dom',
+			]
 		}
 	}
 })
