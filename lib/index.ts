@@ -144,8 +144,6 @@ function expandNode(root: any): any[] {
 	const result: any[] = [];
 
 	for (const [path, info] of Object.entries(root)) {
-		console.log(info);
-
 		result.push({
 			path: path,
 			children: expandNode((info as any).children),
