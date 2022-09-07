@@ -28,6 +28,18 @@ Parameters can be defined by using `[name]` as folder name. This will automatica
 
 Folders named `@` will map to the index page of the parent directory.
 
+### Nested pages
+
+You can add a nested route by making a folder named `_` anywhere in your file tree. Nested pages are responsible for placing an `<Outlet />` where child routes will be rendered. Routes can be nested any number of times, each rendering in its closest parent outlet.
+
+Visual example:
+```
+/example/_				- Responsible for rendering outlet 1
+/example/@				- Rendered inside outlet 1
+/example/page/_			- Rendered inside outlet 1 and responsible for rendering outlet 2
+/example/page/@			- Rendered inside outlet 2
+/example/page/nested 	- Rendered inside outlet 2
+```
 ### Example folder structure
 
 ```
@@ -39,7 +51,9 @@ pages/
 		index.tsx
 		style.scss
 	settings/
-		nested/
+		_/
+			index.tsx
+		overview/
 			index.tsx
 		[param]/
 			index.tsx
@@ -50,7 +64,7 @@ The above example translates to the given routes
 ```
 /
 /help
-/settings/nested
+/settings/overview
 /settings/:param
 ```
 
