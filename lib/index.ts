@@ -1,3 +1,6 @@
+import { parse } from "path";
+import { stringify } from "querystring";
+import { ReactElement, ReactNode } from "react";
 import { RouteObject } from "react-router-dom";
 
 export type ViteImport = Record<string, { default: RouteObject }>;
@@ -62,25 +65,95 @@ export function buildRouteObjects<R extends RouteObject = RouteObject>(trees: Ro
 			routeMap[path] = object;
 		}
 	}
+	
+	const index: any = {};
+	const paths = Object.entries(routeMap);
+	const routes: [string[], R][] = paths
+		.sort(([a], [b]) => {
+			const la = a.split('/').length;
+			const lb = b.split('/').length;
 
-	const paths = Object.keys(routeMap);
-	const sorted = paths.sort(path => -path.split('/').length);
-	const routes: R[] = [];
+			if (la - lb !== 0) {
+				return la - lb;
+			}
 
-	for (const path of sorted) {
-		const object = routeMap[path];
-		const fullPath = path
-			.replace(/(\/@)/, '')			// Ignore @ folders
-			.replace(/\/[^\/]+$/, '')			// Remove file name
-			.replace(/\[(\w+)\]/, ':$1');   // Convert [param] to :param
+			const ua = a.split('_').length;
+			const ub = b.split('_').length;
 
-		routes.push({
-			...object,
-			path: fullPath || '/'
+			return ub - ua;
+		})
+		.map(([path, value]) => [
+			path.replace(/(\/@)/, '')			// Ignore @ folders
+				.replace(/\/[^\/]+$/, '')		// Remove file name
+				.replace(/\[(\w+)\]/, ':$1')	// Convert [param] to :param
+				.slice(1)
+				.split('/'),
+			value
+		]);
+
+	for (const [path, route] of routes) {
+		const last = path[path.length - 1];
+
+		if (last == '_') {
+			placeNode(index, path.slice(0, -1), route);
+		} else {
+			placeNode(index, path, route);
+		}
+	}
+
+	return expandNode(index);
+}
+
+/**
+ * Attempt to place a node in a tree structure based on the
+ * given path segments.
+ * 
+ * @param root The root object
+ * @param segments The path segments
+ * @param value The value to place
+ */
+function placeNode(root: any, segments: string[], value: any) {
+	let matched = false;
+
+	for (let i = 0; i < segments.length; i++) {
+		const built = segments.slice(0, i + 1).join('/');
+
+		if (root[built]) {
+			placeNode(root[built].children, segments.slice(i + 1), value);
+			matched = true;
+			break;
+		}
+	}
+
+	if (!matched) {
+		root[segments.join('/')] = {
+			children: {},
+			value: value
+		};
+	}
+}
+
+/**
+ * Expand the object structure into arrays
+ * of route objects.
+ * 
+ * @param root The root object
+ * @returns The route objects
+ */
+function expandNode(root: any): any[] {
+	const result: any[] = [];
+
+	for (const [path, info] of Object.entries(root)) {
+		console.log(info);
+
+		result.push({
+			path: path,
+			children: expandNode((info as any).children),
+			...(info as any).value
 		});
 	}
 
-	return routes;
+	return result;
 }
 
 function isViteImport(routes: ViteImport | WebpackImport): routes is ViteImport {
