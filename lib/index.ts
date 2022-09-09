@@ -15,12 +15,19 @@ export interface RouteTree {
 }
 
 /**
+ * An extension of {@link RouteObject} with optional alternative paths to this route.
+ */
+ export interface TreeRouteObject extends RouteObject {
+	alternatives?: string[];
+}
+
+/**
  * Helper function used to define a route
  * 
  * @param route The route to define
  * @returns The input route
  */
-export function defineRoute<R extends RouteObject = RouteObject>(route: R): R {
+export function defineRoute<R extends TreeRouteObject = TreeRouteObject>(route: R): R {
 	return route;
 }
 
@@ -31,7 +38,7 @@ export function defineRoute<R extends RouteObject = RouteObject>(route: R): R {
  * @param trees The route trees to merge
  * @returns The routing objects
  */
-export function buildRouteObjects<R extends RouteObject = RouteObject>(trees: RouteTree[]): R[] {
+export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(trees: RouteTree[]): R[] {
 	const routeMap: Record<string, R> = {};
 
 	for(const { prefix, routes } of trees) {
@@ -112,7 +119,7 @@ export function buildRouteObjects<R extends RouteObject = RouteObject>(trees: Ro
  * @param segments The path segments
  * @param value The value to place
  */
-function placeNode(root: any, segments: string[], value: any) {
+function placeNode(root: any, segments: string[], value: TreeRouteObject) {
 	let matched = false;
 
 	for (let i = 0; i < segments.length; i++) {
@@ -130,6 +137,15 @@ function placeNode(root: any, segments: string[], value: any) {
 			children: {},
 			value: value
 		};
+
+		if (value.alternatives) {
+			for (const alternative of value.alternatives) {
+				root[alternative] = {
+					children: {},
+					value: value
+				};
+			}
+		}
 	}
 }
 

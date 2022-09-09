@@ -9,5 +9,8 @@ function ExampleChildPage() {
 }
 
 export default defineRoute({
-	element: <ExampleChildPage />
+	element: <ExampleChildPage />,
+	alternatives: [
+		'/alternative'
+	]
 });

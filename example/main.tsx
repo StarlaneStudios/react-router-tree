@@ -17,6 +17,10 @@ const otherTree: RouteTree = {
 const routes = buildRouteObjects([mainTree, otherTree]);
 const root = createRoot(document.getElementById('root')!);
 
+export {
+	routes
+}
+
 console.log('Generated routes:', routes);
 
 root.render(
