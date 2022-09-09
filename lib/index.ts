@@ -1,6 +1,3 @@
-import { parse } from "path";
-import { stringify } from "querystring";
-import { ReactElement, ReactNode } from "react";
 import { RouteObject } from "react-router-dom";
 
 export type ViteImport = Record<string, { default: RouteObject }>;
@@ -15,10 +12,15 @@ export interface RouteTree {
 }
 
 /**
+ * A route object with a required path
+ */
+export type AlternativeRouteObject<T extends RouteObject> = Partial<T> & { path: string };
+
+/**
  * An extension of {@link RouteObject} with optional alternative paths to this route.
  */
- export interface TreeRouteObject extends RouteObject {
-	alternatives?: string[];
+export interface TreeRouteObject extends RouteObject {
+	alternatives?: AlternativeRouteObject<Omit<this, 'alternatives'>>[];
 }
 
 /**
@@ -141,9 +143,9 @@ function placeNode(root: any, segments: string[], value: TreeRouteObject) {
 
 		if (value.alternatives) {
 			for (const alternative of value.alternatives) {
-				root[alternative] = {
+				root[alternative.path] = {
 					children: {},
-					value: value
+					value: {...value, ...alternative}
 				};
 			}
 		}
