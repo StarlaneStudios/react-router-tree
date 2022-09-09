@@ -119,7 +119,7 @@ const pageTree: RouteTree = {
 };
 
 // Combine page trees into a single array of routes
-const routes = buildRouteObjects([pageTree]);
+const routes = buildRouteObjects(pageTree);
 ```
 
 ## Example
