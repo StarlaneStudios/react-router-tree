@@ -20,6 +20,26 @@ npm install react-router-tree
 
 Pages are defined using a folder structure in your application. Subfolders denote path segments, while pages map to `index.tsx` or `index.jsx` files. In react-router-tree, each page is given it's own directory, in which assets and styles can be placed, allowing for a clean and structured page setup.
 
+## Exporting pages
+
+Each page is expected to contain a default export of it's `RouteObject`. For TypeScript users a `defineRoute` helper function is included. The `path` property will automatically be populated when parsing the tree, so it may be omitted.
+
+```tsx
+import { defineRoute } from "react-router-tree";
+
+function IndexPage() {
+	return (
+		<div>
+			Page content
+		</div>
+	)
+}
+
+export default defineRoute({
+	element: <IndexPage />
+});
+```
+
 ### URL Parameters
 
 Parameters can be defined by using `[name]` as folder name. This will automatically translate into `:name` when building routes.
@@ -40,6 +60,22 @@ Visual example:
 /example/page/@			- Rendered inside outlet 2
 /example/page/nested 	- Rendered inside outlet 2
 ```
+
+## Alternative paths
+
+The route object returned from a page allows defining a list of alternative paths that can be used to reach the page. These alternative paths are relative to the route itself and share the same meta.
+
+Example:
+```tsx
+export default defineRoute({
+	element: <HelpPage />,
+	alternatives: [
+		'instructions',
+		'sub/path/:param'
+	]
+});
+```
+
 ### Example folder structure
 
 ```
@@ -66,26 +102,6 @@ The above example translates to the given routes
 /help
 /settings/overview
 /settings/:param
-```
-
-# Exporting page components
-
-Each page is expected to contain a default export of it's `RouteObject`. For TypeScript users a `defineRoute` helper function is included. The `path` property will automatically be populated when parsing the tree, so it may be omitted.
-
-```tsx
-import { defineRoute } from "react-router-tree";
-
-function IndexPage() {
-	return (
-		<div>
-			Page content
-		</div>
-	)
-}
-
-export default defineRoute({
-	element: <IndexPage />
-});
 ```
 
 ## Usage
