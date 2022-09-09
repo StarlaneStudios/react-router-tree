@@ -145,7 +145,7 @@ function expandNode(root: any): any[] {
 
 	for (const [path, info] of Object.entries(root)) {
 		result.push({
-			path: path,
+			path: path.startsWith('/') ? path.substring(1) : path,
 			children: expandNode((info as any).children),
 			...(info as any).value
 		});
