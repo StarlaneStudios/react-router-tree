@@ -38,10 +38,11 @@ export function defineRoute<R extends TreeRouteObject = TreeRouteObject>(route: 
  * @param trees The route trees to merge
  * @returns The routing objects
  */
-export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(trees: RouteTree[]): R[] {
+export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(trees: RouteTree|RouteTree[]): R[] {
 	const routeMap: Record<string, R> = {};
+	const treeList = Array.isArray(trees) ? trees : [trees];
 
-	for(const { prefix, routes } of trees) {
+	for(const { prefix, routes } of treeList) {
 		const list = isViteImport(routes) ? Object.keys(routes) : routes.keys();
 		const fixed = prefix.endsWith('/')
 			? prefix.slice(0, -1)
