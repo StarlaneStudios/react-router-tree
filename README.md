@@ -63,15 +63,15 @@ Visual example:
 
 ## Alternative paths
 
-The route object returned from a page allows defining a list of alternative paths that can be used to reach the page. These alternative paths are relative to the route itself and share the same meta.
+The route object returned from a page allows defining a list of alternative routes that can be used to reach the page. These alternative paths are relative to the route itself and share the same meta.
 
 Example:
 ```tsx
 export default defineRoute({
 	element: <HelpPage />,
 	alternatives: [
-		'instructions',
-		'sub/path/:param'
+		{ path: 'instructions' },
+		{ path: 'sub/path/:param' }
 	]
 });
 ```
