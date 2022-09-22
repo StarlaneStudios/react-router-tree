@@ -76,7 +76,7 @@ export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(t
 		}
 	}
 	
-	const index: any = {};
+	const index: Record<string, any> = {};
 	const paths = Object.entries(routeMap);
 	const routes: [string[], R][] = paths
 		.sort(([a], [b]) => {
@@ -103,12 +103,8 @@ export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(t
 
 	for (const [path, route] of routes) {
 		const last = path[path.length - 1];
-
-		if (last == '_') {
-			placeNode(index, path.slice(0, -1), route);
-		} else {
-			placeNode(index, path, route);
-		}
+		const segments = last == '_' ? path.slice(0, -1) : path;
+		placeNode(index, segments, route);
 	}
 
 	return expandNode(index);
@@ -160,13 +156,13 @@ function placeNode(root: any, segments: string[], value: TreeRouteObject) {
  * @returns The route objects
  */
 function expandNode(root: any): any[] {
-	const result: any[] = [];
+	const result = [];
 
-	for (const [path, info] of Object.entries(root)) {
+	for (const [path, info] of Object.entries(root) as [string, any]) {
 		result.push({
 			path: path.startsWith('/') ? path.substring(1) : path,
-			children: expandNode((info as any).children),
-			...(info as any).value
+			children: expandNode(info.children),
+			...info.value
 		});
 	}
 
