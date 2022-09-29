@@ -95,16 +95,18 @@ export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(t
 		.map(([path, value]) => [
 			path.replace(/(\/@)/, '')			// Ignore @ folders
 				.replace(/\/[^\/]+$/, '')		// Remove file name
-				.replace(/\[(\w+)\]/, ':$1')	// Convert [param] to :param
+				.replace(/\[(\w+)\]/g, ':$1')	// Convert [param] to :param
 				.slice(1)
 				.split('/'),
 			value
 		]);
-
+	
 	for (const [path, route] of routes) {
 		const last = path[path.length - 1];
-		const segments = last == '_' ? path.slice(0, -1) : path;
-		placeNode(index, segments, route);
+		const isParent = last == '_';
+		const segments = isParent ? path.slice(0, -1) : path;
+
+		placeNode(index, segments, isParent, route);
 	}
 
 	return expandNode(index);
@@ -116,16 +118,17 @@ export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(t
  * 
  * @param root The root object
  * @param segments The path segments
+ * @param isParent Whether the node is a parent
  * @param value The value to place
  */
-function placeNode(root: any, segments: string[], value: TreeRouteObject) {
+function placeNode(root: any, segments: string[], isParent: boolean, value: TreeRouteObject) {
 	let matched = false;
 
 	for (let i = 0; i < segments.length; i++) {
 		const built = segments.slice(0, i + 1).join('/');
 
-		if (root[built]) {
-			placeNode(root[built].children, segments.slice(i + 1), value);
+		if (root[built] && root[built].isParent) {
+			placeNode(root[built].children, segments.slice(i + 1), isParent, value);
 			matched = true;
 			break;
 		}
@@ -134,7 +137,8 @@ function placeNode(root: any, segments: string[], value: TreeRouteObject) {
 	if (!matched) {
 		root[segments.join('/')] = {
 			children: {},
-			value: value
+			value: value,
+			isParent: isParent
 		};
 
 		if (value.alternatives) {
