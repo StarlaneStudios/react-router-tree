@@ -48,9 +48,9 @@ Parameters can be defined by using `[name]` as folder name. This will automatica
 
 Folders named `@` will map to the index page of the parent directory.
 
-### Nested pages
+### Parent pages
 
-You can add a nested route by making a folder named `_` anywhere in your file tree. Nested pages are responsible for placing an `<Outlet />` where child routes will be rendered. Routes can be nested any number of times, each rendering in its closest parent outlet.
+You can add a parent pages by making a folder named `_` anywhere in your file tree. Parent pages are responsible for placing an `<Outlet />` where child routes will be rendered. Routes can be parented any number of times, each rendering in its closest parent outlet.
 
 Visual example:
 ```
@@ -58,7 +58,7 @@ Visual example:
 /example/@				- Rendered inside outlet 1
 /example/page/_			- Rendered inside outlet 1 and responsible for rendering outlet 2
 /example/page/@			- Rendered inside outlet 2
-/example/page/nested 	- Rendered inside outlet 2
+/example/page/child 	- Rendered inside outlet 2
 ```
 
 ## Alternative paths
@@ -125,10 +125,6 @@ const routes = buildRouteObjects(pageTree);
 ## Example
 
 An example implementation can be found [here](https://github.com/StarlaneStudios/react-router-tree/tree/main/example).
-
-## Recommendation
-
-If you're looking for further react router enhancements, check out our other package [react-router-interceptor](https://www.npmjs.com/package/react-router-interceptor) which allows you to execute async callbacks before loading a page, introducing a cleaner way of fetching page state.
 
 ## Vindigo
 
