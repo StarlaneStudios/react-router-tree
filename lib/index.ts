@@ -1,4 +1,4 @@
-import { RouteObject } from "react-router-dom";
+import type { NonIndexRouteObject, RouteObject } from "react-router-dom";
 
 export type ViteImport = Record<string, { default: RouteObject }>;
 export type WebpackImport = { keys: () => string[]; } & ((key: string) => { default: RouteObject });
@@ -19,7 +19,7 @@ export type AlternativeRouteObject<T extends RouteObject> = Partial<T> & { path:
 /**
  * An extension of {@link RouteObject} with optional alternative paths to this route.
  */
-export interface TreeRouteObject extends RouteObject {
+export interface TreeRouteObject extends NonIndexRouteObject {
 	alternatives?: AlternativeRouteObject<Omit<this, 'alternatives'>>[];
 }
 
