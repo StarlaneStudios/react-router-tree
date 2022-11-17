@@ -14,12 +14,15 @@ const otherTree: RouteTree = {
 	routes: import.meta.glob('./other-pages/**/index.tsx', { eager: true })
 }
 
-const routes = buildRouteObjects([mainTree, otherTree]);
+const starTree: RouteTree = {
+	prefix: './star-pages',
+	routes: import.meta.glob('./star-pages/**/index.tsx', { eager: true })
+}
+
+const routes = buildRouteObjects([mainTree, otherTree, starTree]);
 const root = createRoot(document.getElementById('root')!);
 
-export {
-	routes
-}
+export { routes };
 
 console.log('Generated routes:', routes);
 
