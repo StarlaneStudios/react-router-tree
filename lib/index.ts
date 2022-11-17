@@ -96,6 +96,7 @@ export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(t
 			path.replace(/(\/@)/, '')			// Ignore @ folders
 				.replace(/\/[^\/]+$/, '')		// Remove file name
 				.replace(/\[(\w+)\]/g, ':$1')	// Convert [param] to :param
+				.replace(/\[\*\]/g, '*')		// Convert [*] to *
 				.slice(1)
 				.split('/'),
 			value
