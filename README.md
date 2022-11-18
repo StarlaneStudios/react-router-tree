@@ -44,6 +44,8 @@ export default defineRoute({
 
 Parameters can be defined by using `[name]` as folder name. This will automatically translate into `:name` when building routes.
 
+We also support a other parameter type: `*` which will match any path segment.
+
 ### Index mapping
 
 Folders named `@` will map to the index page of the parent directory.
@@ -93,6 +95,12 @@ pages/
 			index.tsx
 		[param]/
 			index.tsx
+	folder/
+		_/
+			index.tsx
+		[*]/
+			index.tsx
+			style.scss
 ```
 
 The above example translates to the given routes
@@ -102,6 +110,7 @@ The above example translates to the given routes
 /help
 /settings/overview
 /settings/:param
+/folder/*
 ```
 
 ## Usage
