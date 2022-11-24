@@ -163,11 +163,17 @@ function placeNode(root: any, segments: string[], isParent: boolean, value: Tree
  */
 function expandNode(root: any): any[] {
 
-	return Object.entries(root).map(([path, root]: [string, any]) => ({
-		path: path.startsWith('/') ? path.substring(1) : path,
-		children: expandNode(root[path]?.children || []),
-		...root.value,
-	}));
+	const result = [];
+
+	for (const [path, info] of Object.entries(root) as [string, any]) {
+		result.push({
+			path: path.startsWith('/') ? path.substring(1) : path,
+			children: expandNode(info.children),
+			...info.value
+		});
+	}
+
+	return result;
 }
 
 function isViteImport(routes: ViteImport | WebpackImport): routes is ViteImport {
