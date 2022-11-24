@@ -44,7 +44,7 @@ export default defineRoute({
 
 Parameters can be defined by using `[name]` as folder name. This will automatically translate into `:name` when building routes.
 
-We also support a other parameter type: `*` which will match any path segment.
+We also support a other parameter type: `...` which will match any path segment.
 
 ### Index mapping
 
@@ -98,7 +98,7 @@ pages/
 	folder/
 		_/
 			index.tsx
-		[*]/
+		[...]/
 			index.tsx
 			style.scss
 ```

@@ -1,7 +1,7 @@
 import type { NonIndexRouteObject, RouteObject } from "react-router-dom";
 
-export type ViteImport = Record<string, { default: RouteObject }>;
-export type WebpackImport = { keys: () => string[]; } & ((key: string) => { default: RouteObject });
+export type ViteImport = Record<string, { default: RouteObject; }>;
+export type WebpackImport = { keys: () => string[]; } & ((key: string) => { default: RouteObject; });
 
 /**
  * An imported tree of routes.
@@ -14,7 +14,7 @@ export interface RouteTree {
 /**
  * A route object with a required path
  */
-export type AlternativeRouteObject<T extends RouteObject> = Partial<T> & { path: string };
+export type AlternativeRouteObject<T extends RouteObject> = Partial<T> & { path: string; };
 
 /**
  * An extension of {@link RouteObject} with optional alternative paths to this route.
@@ -40,11 +40,12 @@ export function defineRoute<R extends TreeRouteObject = TreeRouteObject>(route: 
  * @param trees The route trees to merge
  * @returns The routing objects
  */
-export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(trees: RouteTree|RouteTree[]): R[] {
+export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(trees: RouteTree | RouteTree[]): R[] {
+
 	const routeMap: Record<string, R> = {};
 	const treeList = Array.isArray(trees) ? trees : [trees];
 
-	for(const { prefix, routes } of treeList) {
+	for (const { prefix, routes } of treeList) {
 		const list = isViteImport(routes) ? Object.keys(routes) : routes.keys();
 		const fixed = prefix.endsWith('/')
 			? prefix.slice(0, -1)
@@ -62,11 +63,11 @@ export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(t
 
 			// Page must be a component
 			// TODO Improved validation
-			if ( typeof object !== 'object') {
+			if (typeof object !== 'object') {
 				console.warn('Invalid route object: ' + path);
 				continue;
 			}
-			
+
 			// Detect page overwriting
 			if (routeMap[path]) {
 				console.warn(`Existing route ${path} was overriden`);
@@ -75,7 +76,7 @@ export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(t
 			routeMap[path] = object;
 		}
 	}
-	
+
 	const index: Record<string, any> = {};
 	const paths = Object.entries(routeMap);
 	const routes: [string[], R][] = paths
@@ -96,12 +97,12 @@ export function buildRouteObjects<R extends TreeRouteObject = TreeRouteObject>(t
 			path.replace(/(\/@)/, '')			// Ignore @ folders
 				.replace(/\/[^\/]+$/, '')		// Remove file name
 				.replace(/\[(\w+)\]/g, ':$1')	// Convert [param] to :param
-				.replace(/\[\*\]/g, '*')		// Convert [*] to *
+				.replace(/\[\.{3}\]/g, '*')		// Convert [...] to *
 				.slice(1)
 				.split('/'),
 			value
 		]);
-	
+
 	for (const [path, route] of routes) {
 		const last = path[path.length - 1];
 		const isParent = last == '_';
@@ -146,7 +147,7 @@ function placeNode(root: any, segments: string[], isParent: boolean, value: Tree
 			for (const alternative of value.alternatives) {
 				root[alternative.path] = {
 					children: {},
-					value: {...value, ...alternative}
+					value: { ...value, ...alternative }
 				};
 			}
 		}
@@ -161,17 +162,12 @@ function placeNode(root: any, segments: string[], isParent: boolean, value: Tree
  * @returns The route objects
  */
 function expandNode(root: any): any[] {
-	const result = [];
 
-	for (const [path, info] of Object.entries(root) as [string, any]) {
-		result.push({
-			path: path.startsWith('/') ? path.substring(1) : path,
-			children: expandNode(info.children),
-			...info.value
-		});
-	}
-
-	return result;
+	return Object.entries(root).map(([path, root]: [string, any]) => ({
+		path: path.startsWith('/') ? path.substring(1) : path,
+		children: expandNode(root[path]?.children || []),
+		...root.value,
+	}));
 }
 
 function isViteImport(routes: ViteImport | WebpackImport): routes is ViteImport {

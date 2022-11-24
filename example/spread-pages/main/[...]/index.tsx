@@ -7,7 +7,7 @@ function StarPage() {
 
 	return (
 		<div>
-			Star page with params:
+			spread page with params:
 			<br />
 			params: {JSON.stringify(params)}
 		</div>

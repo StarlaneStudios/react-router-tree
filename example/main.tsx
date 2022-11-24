@@ -14,12 +14,12 @@ const otherTree: RouteTree = {
 	routes: import.meta.glob('./other-pages/**/index.tsx', { eager: true })
 }
 
-const starTree: RouteTree = {
-	prefix: './star-pages',
-	routes: import.meta.glob('./star-pages/**/index.tsx', { eager: true })
+const spreadTree: RouteTree = {
+	prefix: './spread-pages',
+	routes: import.meta.glob('./spread-pages/**/index.tsx', { eager: true })
 }
 
-const routes = buildRouteObjects([mainTree, otherTree, starTree]);
+const routes = buildRouteObjects([mainTree, otherTree, spreadTree]);
 const root = createRoot(document.getElementById('root')!);
 
 export { routes };

@@ -7,9 +7,9 @@ function StarPage() {
 
 	return (
 		<div>
-			Star page:
+			main page:
 			<br />
-			params: {JSON.stringify(params)}
+			params: {JSON.stringify(params) || "no params found..."}
 		</div>
 	)
 }
