@@ -8,6 +8,9 @@
 
 Implement Next.js style page directories in your single page application. Supports React projects created using [Vite](https://vitejs.dev/) or [CRA](https://create-react-app.dev/) (or any other webpack implementation).
 
+# DEPRECATED ⚠️
+This package is no longer actively maintained and has been superseded by [Sceptre](https://github.com/StarlaneStudios/sceptre).
+
 ## Installation
 
 Install the package using NPM
